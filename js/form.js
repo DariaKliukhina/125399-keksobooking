@@ -11,16 +11,6 @@
   var selects = document.querySelectorAll('select');
   var resetButton = document.querySelector('.ad-form__reset');
 
-  window.form = {
-    adForm: adForm,
-    adFormTimeIn: adFormTimeIn,
-    adFormTimeOut: adFormTimeOut,
-    adFormType: adFormType,
-    adFormPrice: adFormPrice,
-    adFormRoomNumber: adFormRoomNumber,
-    adFormCapacity: adFormCapacity
-  };
-
   var OFFER_PRICE = {
     'palace': 10000,
     'flat': 1000,
@@ -34,7 +24,7 @@
   window.map.formFieldsets.forEach(function (el) {
     el.setAttribute('disabled', true);
   });
-  window.map.mapFieldsets.forEach(function (el) {
+  window.map.fieldsets.forEach(function (el) {
     el.setAttribute('disabled', true);
   });
 
@@ -96,14 +86,13 @@
   };
 
   var formReset = function () {
+    window.photos.clear();
     adForm.reset();
-    window.map.mainPin.style = 'left:' + window.map.mapCenterX + 'px; top:' + window.map.mapCenterY + 'px;';
-    window.map.mapElement.classList.add('map--faded');
+    window.map.mainPin.style = 'left:' + window.map.centerX + 'px; top:' + window.map.centerY + 'px;';
+    window.map.element.classList.add('map--faded');
 
     adForm.classList.add('ad-form--disabled');
-    if (window.map.card) {
-      window.map.mapElement.removeChild(window.map.card);
-    }
+    window.card.remove();
     var mapPins = document.querySelectorAll('button.map__pin:not(.map__pin--main)');
     var pinsContainer = document.querySelector('.map__pins');
     for (var t = 0; t < mapPins.length; t++) {
@@ -119,7 +108,7 @@
 
   var onSubmit = function () {
     formReset();
-    window.showSuccess();
+    window.onShowSuccess();
   };
 
   resetButton.addEventListener('click', onReset);

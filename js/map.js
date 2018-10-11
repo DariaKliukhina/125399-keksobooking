@@ -17,23 +17,25 @@
   var mapCenterY = mapHeight / 2 - mainPinStartHeight / 2;
   var mapCenterX = mapWidth / 2 - mainPinWidth / 2;
   var main = document.querySelector('main');
+  var mapCard = mapElement.querySelector('.map__card');
 
   window.map = {
     userDialog: userDialog,
-    mapPin: mapPin,
-    mapElement: mapElement,
+    pin: mapPin,
+    element: mapElement,
     mainPinWidth: mainPinWidth,
     mainPinStartHeight: mainPinStartHeight,
     adress: adress,
     formHeader: formHeader,
     formFieldsets: formFieldsets,
-    mapFieldsets: mapFieldsets,
+    fieldsets: mapFieldsets,
     formFeatures: formFeatures,
     adForm: adForm,
     mainPin: mainPin,
-    mapCenterY: mapCenterY,
-    mapCenterX: mapCenterX,
-    main: main
+    centerY: mapCenterY,
+    centerX: mapCenterX,
+    main: main,
+    card: mapCard
   };
 
   var onPinChange = function () {
@@ -118,18 +120,18 @@
     document.addEventListener('mouseup', onMouseUp);
     mainPin.addEventListener('mouseup', onPinChange);
   });
-  var showSuccess = function () {
+  var onShowSuccess = function () {
     var success = document.querySelector('#success').content.querySelector('.success');
     var successElement = success.cloneNode(true);
-    successElement.addEventListener('mousedown', closeSuccess);
     main.appendChild(successElement);
-    document.addEventListener('keydown', closeSuccess);
+    successElement.addEventListener('mousedown', window.onCloseSuccess);
+    document.addEventListener('keydown', window.onCloseSuccess);
   };
 
-  var closeSuccess = function () {
+  var onCloseSuccess = function () {
     var successElement = document.querySelector('.success');
     main.removeChild(successElement);
-    document.removeEventListener('keydown', closeSuccess);
+    document.removeEventListener('keydown', onCloseSuccess);
   };
   var onSubmitError = function (errorMessage) {
     var error = document.querySelector('#error').content.querySelector('.error');
@@ -137,19 +139,20 @@
     var errorText = error.querySelector('.error__message');
     errorText.textContent = errorMessage;
     main.appendChild(errorElement);
-    document.addEventListener('keydown', closeError);
-    errorElement.addEventListener('click', closeError);
+    document.addEventListener('keydown', window.onCloseError);
+    errorElement.addEventListener('click', window.onCloseError);
   };
-  var closeError = function () {
+  var onCloseError = function () {
     var errorElement = document.querySelector('.error');
     main.removeChild(errorElement);
-    document.removeEventListener('keydown', closeError);
-    errorElement.removeEventListener('click', closeError);
+    document.removeEventListener('keydown', window.onCloseError);
+    errorElement.removeEventListener('click', window.onCloseError);
   };
 
-  window.showSuccess = showSuccess;
   window.onSubmitError = onSubmitError;
-  window.closeError = closeError;
+  window.onShowSuccess = onShowSuccess;
+  window.onCloseSuccess = onCloseSuccess;
+  window.onCloseError = onCloseError;
 })();
 
 

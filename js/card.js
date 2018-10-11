@@ -49,14 +49,17 @@
     button.addEventListener('click', function (evt) {
       var target = evt.target;
       var targetBlock = target.parentNode;
-      removeElement(window.map.mapElement, targetBlock);
+      removeElement(window.map.element, targetBlock);
     });
   };
-  var cardRender = function (ad) {
-    var currentCard = window.map.mapElement.querySelector('.map__card');
+  var removeCard = function () {
+    var currentCard = window.map.element.querySelector('.map__card');
     if (currentCard !== null) {
       currentCard.remove();
     }
+  };
+  var cardRender = function (ad) {
+    removeCard();
     var cardElement = cardTemplate.cloneNode(true);
     var cardFeatures = cardElement.querySelector('.popup__features');
     var cardPhotosWrapper = cardElement.querySelector('.popup__photos');
@@ -77,7 +80,7 @@
   };
 
   document.addEventListener('keydown', function (evt) {
-    var currentCard = window.map.mapElement.querySelector('.map__card');
+    var currentCard = window.map.element.querySelector('.map__card');
     if (evt.keyCode === ESC) {
       if (currentCard !== null) {
         currentCard.remove();
@@ -86,8 +89,7 @@
   });
 
   window.card = {
-    cardRender: cardRender,
-    closeCard: closeCard,
-    removeElement: removeElement
+    render: cardRender,
+    remove: removeCard
   };
 })();

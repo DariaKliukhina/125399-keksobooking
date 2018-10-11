@@ -24,12 +24,12 @@
     }
   };
 
-  function clearPhotos() {
+  var clearPhotos = function () {
     var photos = document.querySelectorAll('.ad-form__photo');
     photos.forEach(function (item) {
       item.remove();
     });
-  }
+  };
 
   var addPhoto = function (file, preview, parentBlock) {
     var reader = new FileReader();
@@ -71,4 +71,8 @@
 
   avatarInput.addEventListener('change', onAvatarChange);
   photoInput.addEventListener('change', onPhotoUpload);
+
+  window.photos = {
+    clear: clearPhotos
+  };
 })();

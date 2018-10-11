@@ -1,14 +1,14 @@
 'use strict';
 (function () {
   var PINS_COUNT = 5;
-  var mapPins = window.map.mapElement.querySelector('.map__pins');
-  var mapFilters = window.map.mapElement.querySelector('.map__filters-container');
+  var mapPins = window.map.element.querySelector('.map__pins');
+  var mapFilters = window.map.element.querySelector('.map__filters-container');
   var pinTemplate = document.querySelector('#pin').content.querySelector('.map__pin');
 
   var pinRender = function (ad, i) {
     var pinElement = pinTemplate.cloneNode(true);
-    var pinElementWidth = window.map.mapPin.offsetWidth;
-    var pinElementHeight = window.map.mapPin.offsetHeight;
+    var pinElementWidth = window.map.pin.offsetWidth;
+    var pinElementHeight = window.map.pin.offsetHeight;
     var pinImage = pinElement.querySelector('img');
     pinElement.style = 'left:' + (ad.location.x - pinElementWidth / 2) + 'px; top: ' + (ad.location.y - pinElementHeight) + 'px';
     pinImage.src = ad.author.avatar;
@@ -16,14 +16,14 @@
     pinElement.setAttribute('data-index', i);
 
     pinElement.addEventListener('click', function (evt) {
-      var allPins = window.map.mapElement.querySelectorAll('.map__pin');
+      var allPins = window.map.element.querySelectorAll('.map__pin');
       allPins.forEach(function (current) {
         current.classList.remove('map__pin--active');
       });
       var currentElement = evt.currentTarget;
       currentElement.classList.add('map__pin--active');
       var elementIndex = currentElement.dataset.index;
-      window.map.mapElement.insertBefore(window.card.cardRender(window.dataArrayCopy[elementIndex]), mapFilters);
+      window.map.element.insertBefore(window.card.render(window.dataArrayCopy[elementIndex]), mapFilters);
     });
 
     return pinElement;
