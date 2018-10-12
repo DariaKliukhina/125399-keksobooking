@@ -86,11 +86,11 @@
   };
 
   var formReset = function () {
+    window.photos.avatar.setAttribute('src', 'img/muffin-grey.svg');
     window.photos.clear();
     adForm.reset();
     window.map.mainPin.style = 'left:' + window.map.centerX + 'px; top:' + window.map.centerY + 'px;';
     window.map.element.classList.add('map--faded');
-
     adForm.classList.add('ad-form--disabled');
     window.card.remove();
     var mapPins = document.querySelectorAll('button.map__pin:not(.map__pin--main)');
@@ -100,15 +100,17 @@
     }
     disableInputs(fieldsets);
     disableInputs(selects);
+    window.photos.append();
+    window.photos.createImg();
   };
 
   var onReset = function () {
     formReset();
+
   };
 
   var onSubmit = function () {
     formReset();
-    window.onShowSuccess();
   };
 
   resetButton.addEventListener('click', onReset);

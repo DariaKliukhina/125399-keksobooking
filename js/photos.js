@@ -53,13 +53,20 @@
   };
 
   var createImage = function () {
+    var previewBlock = document.querySelector('.ad-form__photo');
     var newImage = document.createElement('img');
-    photoPreviewBlock.appendChild(newImage);
+    previewBlock.appendChild(newImage);
     newImage.setAttribute('src', 'img/muffin-grey.svg');
     newImage.setAttribute('width', '70');
     newImage.setAttribute('height', '70');
   };
   createImage();
+
+  var appendPhoto = function () {
+    var newPhotoPreview = document.createElement('div');
+    newPhotoPreview.classList.add('ad-form__photo');
+    window.photos.container.appendChild(newPhotoPreview);
+  };
 
   var onAvatarChange = function () {
     loadPhoto(avatarInput, avatarPreview);
@@ -73,6 +80,11 @@
   photoInput.addEventListener('change', onPhotoUpload);
 
   window.photos = {
-    clear: clearPhotos
+    clear: clearPhotos,
+    avatar: avatarPreview,
+    previewBlock: photoPreviewBlock,
+    append: appendPhoto,
+    createImg: createImage,
+    container: photosContainer
   };
 })();
