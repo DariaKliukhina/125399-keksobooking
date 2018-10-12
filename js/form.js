@@ -111,6 +111,7 @@
 
   var onSubmit = function () {
     formReset();
+    window.onShowSuccess();
   };
 
   resetButton.addEventListener('click', onReset);
